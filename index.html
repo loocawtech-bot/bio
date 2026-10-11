@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weliton Oliveira · Links</title>
   <meta name="description" content="Weliton Oliveira — designer e desenvolvedor há 15+ anos. Sites, sistemas e soluções em IA para empresas, e reforço de time para agências." />
-  <meta property="og:title" content="Weliton Oliveira · Designer & Dev" />
+  <meta property="og:title" content="Weliton Oliveira · Dev & IA" />
   <meta property="og:description" content="Sites, sistemas e IA para empresas. Disponível para projetos e para reforçar times de agências." />
   <meta property="og:image" content="https://loocawtech-bot.github.io/bio/assets/weliton-og.jpg" />
   <meta property="og:url" content="https://loocawtech-bot.github.io/bio/" />
@@ -108,6 +108,9 @@
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 20px; }
     .stat { padding: 12px 8px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(12px); }
     .stat b { display: block; font: 800 1.15rem var(--fd); letter-spacing: -.03em; }
+    .flags { display: flex !important; justify-content: center; height: 1.15rem; margin: .1rem 0 .15rem; }
+    .flags svg { width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 0 0 2px var(--bg), 0 2px 6px rgba(0, 0, 0, .3); }
+    .flags svg + svg { margin-left: -5px; }
     .stat span { display: block; font-size: .74rem; color: var(--body); line-height: 1.3; margin-top: 2px; }
 
     .socials { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
@@ -144,34 +147,26 @@
     .cta.secondary small { color: var(--body); }
     .cta.secondary .arrow { background: var(--lk-grad); color: #fff; }
 
-    /* para agências */
-    .hire { margin-top: 12px; padding: 18px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(14px); }
-    .hire h3 { font: 600 .92rem var(--fd); color: var(--txt); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .hire h3 svg { width: 18px; height: 18px; color: var(--accent); }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip { padding: 6px 11px; border-radius: 100px; background: var(--chip); border: 1px solid var(--line); font: 500 .78rem var(--fd); color: var(--txt); }
-    .hire .chips + h3 { margin-top: 16px; }
 
-    /* ferramentas — marquee infinito */
-    .tools { margin-top: 36px; }
-    .tools .sec-head { margin-top: 0; }
-    .marquee { position: relative; overflow: hidden; margin: 0 -16px; padding: 6px 0;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-              mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
-    .marquee + .marquee { margin-top: 10px; }
-    .track { display: flex; width: max-content; gap: 10px; animation: marquee 32s linear infinite; }
-    .marquee.rev .track { animation-direction: reverse; animation-duration: 38s; }
+    /* ferramentas — marquee infinito, logos soltas com bordas esfumaçadas */
+    .tools { position: relative; margin-top: 36px; padding: 8px 0; }
+    .tools::before { content: ''; position: absolute; inset: -10px -16px; z-index: -1; pointer-events: none;
+      background: radial-gradient(50% 60% at 50% 50%, var(--glow-2), transparent 70%); filter: blur(24px); opacity: .55; }
+    .marquee { position: relative; overflow: hidden; margin: 0 -16px; padding: 10px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.25) 10%, #000 32%, #000 68%, rgba(0,0,0,.25) 90%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.25) 10%, #000 32%, #000 68%, rgba(0,0,0,.25) 90%, transparent 100%); }
+    .marquee + .marquee { margin-top: 6px; }
+    .track { display: flex; align-items: center; width: max-content; gap: 44px; padding-right: 44px; animation: marquee 60s linear infinite; }
+    .marquee.rev .track { animation-direction: reverse; animation-duration: 72s; }
     .marquee:hover .track { animation-play-state: paused; }
     @keyframes marquee { to { transform: translateX(-50%); } }
-    .tool { flex: none; height: 56px; padding: 0 20px; border-radius: 14px; display: grid; place-items: center;
-      background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(12px); transition: border-color .25s; }
-    .tool:hover { border-color: var(--line-2); }
-    .tool img { height: 24px; width: auto; display: block; opacity: .88; transition: opacity .25s; }
-    .tool:hover img { opacity: 1; }
-    .tool img.tall { height: 30px; }
-    .tool img.slim { height: 20px; }
-    .tool img.xl { height: 38px; }
-    :root[data-theme="light"] .tool img { filter: brightness(0) saturate(100%) invert(10%) sepia(60%) saturate(3500%) hue-rotate(205deg) brightness(.9); }
+    .tool { flex: none; display: grid; place-items: center; height: 44px; }
+    .tool img { height: 22px; width: auto; display: block; opacity: .55; filter: drop-shadow(0 0 10px rgba(0, 217, 246, .0)); transition: opacity .4s, filter .4s; }
+    .tool:hover img { opacity: 1; filter: drop-shadow(0 0 12px rgba(0, 217, 246, .45)); }
+    .tool img.tall { height: 28px; }
+    .tool img.slim { height: 18px; }
+    .tool img.xl { height: 36px; }
+    :root[data-theme="light"] .tool img, :root[data-theme="light"] .tool:hover img { filter: brightness(0) saturate(100%) invert(10%) sepia(60%) saturate(3500%) hue-rotate(205deg) brightness(.9); }
 
     /* lista de links */
     .links { display: grid; gap: 12px; margin-top: 28px; }
@@ -194,21 +189,38 @@
     .sec-head a { font: 500 .85rem var(--fd); color: var(--accent); }
     .sec-sub { font-size: .9rem; margin-bottom: 16px; }
 
-    .rail { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 16px; padding-bottom: 8px; margin: 0 -16px; padding-inline: 16px; scrollbar-width: none; }
-    .rail::-webkit-scrollbar { display: none; }
-    .work { scroll-snap-align: start; border-radius: 18px; overflow: hidden; background: var(--card); border: 1px solid var(--line); transition: border-color .25s, transform .3s var(--ease); }
-    .work:hover { border-color: var(--line-2); transform: translateY(-3px); }
-    .thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
-    .thumb .win { position: absolute; left: 10%; right: 10%; top: 16%; bottom: -8%; border-radius: 10px 10px 0 0; background: rgba(255, 255, 255, .94); box-shadow: 0 10px 30px rgba(0, 0, 0, .25); padding: 10px; }
-    .thumb .bar { display: flex; gap: 4px; margin-bottom: 9px; }
-    .thumb .bar i { width: 6px; height: 6px; border-radius: 50%; background: #D3DCE8; }
-    .thumb .l { height: 7px; border-radius: 4px; background: #E3EAF3; margin-bottom: 6px; }
-    .thumb .l.h { height: 11px; width: 62%; background: var(--acc, #001F4E); opacity: .9; }
-    .thumb .l.s { width: 40%; }
-    .thumb .btn { width: 34%; height: 12px; border-radius: 6px; margin-top: 10px; background: var(--acc2, #1E6BFF); }
-    .work .meta { padding: 14px 16px 16px; }
-    .work .tag { font: 600 .68rem var(--fd); text-transform: uppercase; letter-spacing: .12em; color: var(--accent); }
-    .work h3 { font: 600 1rem var(--fd); color: var(--txt); margin-top: 4px; letter-spacing: -.01em; }
+
+    /* sites — carrossel coverflow */
+    .show { position: relative; margin: 0 -16px; }
+    .show-track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 9% 18px; scrollbar-width: none; }
+    .show-track::-webkit-scrollbar { display: none; }
+    .site { flex: 0 0 82%; scroll-snap-align: center; border-radius: 18px; overflow: hidden; background: var(--card); border: 1px solid var(--line);
+      cursor: zoom-in; transform: scale(var(--s, .9)); opacity: var(--o, .55); transition: transform .5s var(--ease), opacity .5s var(--ease), border-color .3s, box-shadow .5s;
+      text-align: left; padding: 0; font: inherit; color: inherit; }
+    .site.on { --s: 1; --o: 1; border-color: var(--line-2); box-shadow: 0 22px 50px rgba(0, 10, 40, .45), 0 0 0 1px rgba(0, 217, 246, .12); }
+    .site .shot { position: relative; aspect-ratio: 1920 / 1140; overflow: hidden; background: var(--bg-2); }
+    .site img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; transition: transform 6s linear; }
+    .site.on img { transform: scale(1.06); }
+    .site .shot::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .18) 50%, transparent 65%); transform: translateX(-120%); }
+    .site.on .shot::after { animation: sweep 1.4s var(--ease) .2s; }
+    @keyframes sweep { to { transform: translateX(120%); } }
+    .site .meta { padding: 12px 16px 14px; }
+    .site .tag { font: 600 .66rem var(--fd); text-transform: uppercase; letter-spacing: .12em; color: var(--accent); }
+    .site h3 { font: 600 .98rem var(--fd); color: var(--txt); margin-top: 3px; letter-spacing: -.01em; }
+    .show-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; }
+    .nav-btn { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: var(--card); border: 1px solid var(--line); color: var(--txt); transition: border-color .25s; }
+    .nav-btn:hover { border-color: var(--line-2); }
+    .nav-btn svg { width: 16px; height: 16px; }
+    .dots { display: flex; gap: 5px; }
+    .dots i { width: 6px; height: 6px; border-radius: 6px; background: var(--line-2); opacity: .5; transition: width .35s var(--ease), opacity .35s, background .35s; }
+    .dots i.on { width: 20px; opacity: 1; background: var(--lk-grad-h); }
+
+    .lightbox { border: 0; padding: 0; margin: auto; width: min(100vw, 1100px); max-width: 100vw; height: 100dvh; max-height: 100dvh; background: transparent; color: var(--txt); }
+    .lightbox::backdrop { background: rgba(0, 6, 20, .88); backdrop-filter: blur(6px); }
+    .lb-body { height: 100%; overflow: auto; padding: 64px 16px 32px; }
+    .lb-body img { width: 100%; height: auto; display: block; border-radius: 14px; box-shadow: 0 30px 80px rgba(0, 0, 0, .5); }
+    .lb-body p { margin-top: 14px; text-align: center; font: 600 .95rem var(--fd); color: #F2F7FF; }
+    .lb-close { position: fixed; top: 16px; right: 16px; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .2); background: rgba(255, 255, 255, .1); color: #fff; font-size: 1rem; cursor: pointer; z-index: 2; }
 
     /* fechamento */
     .closing { text-align: center; margin-top: 40px; padding: 28px 20px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
@@ -224,7 +236,7 @@
     .rv { opacity: 0; transform: translateY(14px); animation: in .7s var(--ease) forwards; }
     @keyframes in { to { opacity: 1; transform: none; } }
 
-    @media (min-width: 560px) { .rail { grid-auto-columns: 46%; } .wrap { padding-top: 28px; } }
+    @media (min-width: 560px) { .site { flex-basis: 70%; } .show-track { padding-inline: 15%; } .wrap { padding-top: 28px; } }
     @media (prefers-reduced-motion: reduce) {
       .marquee { overflow-x: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -234,14 +246,15 @@
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="f-br" viewBox="0 0 36 36"><clipPath id="cbr"><circle cx="18" cy="18" r="18"/></clipPath><g clip-path="url(#cbr)"><rect width="36" height="36" fill="#009C3B"/><path d="M18 6 32 18 18 30 4 18z" fill="#FFDF00"/><circle cx="18" cy="18" r="6.6" fill="#002776"/><path d="M11.6 16.6c4.4-.9 9-.2 12.9 2" stroke="#fff" stroke-width="1.2" fill="none"/></g></symbol>
+    <symbol id="f-pt" viewBox="0 0 36 36"><clipPath id="cpt"><circle cx="18" cy="18" r="18"/></clipPath><g clip-path="url(#cpt)"><rect width="36" height="36" fill="#DA291C"/><rect width="14" height="36" fill="#046A38"/><circle cx="14" cy="18" r="6" fill="#FFE900"/><path d="M11 14.5h6v4.6a3 3 0 0 1-6 0z" fill="#DA291C" stroke="#fff" stroke-width=".9"/></g></symbol>
+    <symbol id="f-us" viewBox="0 0 36 36"><clipPath id="cus"><circle cx="18" cy="18" r="18"/></clipPath><g clip-path="url(#cus)"><rect width="36" height="36" fill="#fff"/><g fill="#B22234"><rect y="0" width="36" height="2.77"/><rect y="5.54" width="36" height="2.77"/><rect y="11.08" width="36" height="2.77"/><rect y="16.62" width="36" height="2.77"/><rect y="22.16" width="36" height="2.77"/><rect y="27.7" width="36" height="2.77"/><rect y="33.24" width="36" height="2.77"/></g><rect width="17" height="19.4" fill="#3C3B6E"/><g fill="#fff"><circle cx="3.5" cy="3.5" r=".9"/><circle cx="8.5" cy="3.5" r=".9"/><circle cx="13.5" cy="3.5" r=".9"/><circle cx="6" cy="7.5" r=".9"/><circle cx="11" cy="7.5" r=".9"/><circle cx="3.5" cy="11.5" r=".9"/><circle cx="8.5" cy="11.5" r=".9"/><circle cx="13.5" cy="11.5" r=".9"/><circle cx="6" cy="15.5" r=".9"/><circle cx="11" cy="15.5" r=".9"/></g></g></symbol>
     <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
     <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.7-2.7l.8-1-1-2z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
     <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/></symbol>
-    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 20a6.5 6.5 0 0 0-3-5.5"/></symbol>
-    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
     <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
@@ -264,14 +277,14 @@
     <section class="profile">
       <div class="avatar rv" style="animation-delay:.05s"><img src="assets/weliton.webp" alt="Weliton Oliveira" width="132" height="132" /></div>
       <div class="status rv" style="animation-delay:.1s"><span class="dot"></span>Disponível para projetos e contratações</div>
-      <h1 class="rv" style="animation-delay:.15s">Weliton Oliveira <span class="role"><span class="sep"></span><span class="grad-text">Designer &amp; Dev</span></span></h1>
+      <h1 class="rv" style="animation-delay:.15s">Weliton Oliveira <span class="role"><span class="sep"></span><span class="grad-text">Dev &amp; IA</span></span></h1>
       <a class="handle rv" style="animation-delay:.18s" href="https://instagram.com/owelitondeoliveira" target="_blank" rel="noopener">@owelitondeoliveira</a>
       <p class="bio rv" style="animation-delay:.22s">Há mais de 15 anos crio <strong>sites, sistemas e soluções em IA</strong>. Atendo empresas direto e reforço o time de <strong>agências</strong>, do conceito ao deploy.</p>
 
       <div class="stats rv" style="animation-delay:.26s">
         <div class="stat"><b class="grad-text">15+</b><span>anos de experiência</span></div>
         <div class="stat"><b class="grad-text">360°</b><span>design, código e IA</span></div>
-        <div class="stat"><b class="grad-text">BR·PT·US</b><span>atendo remoto</span></div>
+        <div class="stat"><b class="flags" aria-label="Brasil, Portugal e Estados Unidos"><svg viewBox="0 0 36 36" role="img" aria-label="Brasil"><use href="#f-br"/></svg><svg viewBox="0 0 36 36" role="img" aria-label="Portugal"><use href="#f-pt"/></svg><svg viewBox="0 0 36 36" role="img" aria-label="Estados Unidos"><use href="#f-us"/></svg></b><span>atendo remoto</span></div>
       </div>
 
       <nav class="socials rv" style="animation-delay:.3s" aria-label="Redes e contato">
@@ -282,36 +295,23 @@
       </nav>
     </section>
 
-    <p class="paths-label rv" style="animation-delay:.34s">Como posso te ajudar?</p>
+    <p class="paths-label rv" style="animation-delay:.34s">Vamos tirar sua ideia do papel?</p>
 
     <a class="cta primary rv" style="animation-delay:.38s" target="_blank" rel="noopener"
-       href="https://wa.me/5541985124091?text=Ol%C3%A1%20Weliton!%20Vim%20pelo%20seu%20Instagram%20e%20tenho%20um%20projeto%20para%20minha%20empresa.">
+       href="https://wa.me/5541985124091?text=Ol%C3%A1%20Weliton!%20Vim%20pelo%20seu%20Instagram%20e%20quero%20criar%20um%20projeto.%20Podemos%20conversar%3F">
       <span class="ico"><svg class="i"><use href="#i-spark"/></svg></span>
-      <span><b>Tenho um projeto</b><small>Site, landing page, sistema ou IA para a minha empresa.</small></span>
+      <span><b>Quero criar meu projeto</b><small>Site, sistema ou IA que vende por você 24h. Orçamento grátis e sem compromisso.</small></span>
       <span class="arrow"><svg class="i"><use href="#i-arrow"/></svg></span>
     </a>
     <a class="cta secondary rv" style="animation-delay:.42s" target="_blank" rel="noopener"
-       href="https://wa.me/5541985124091?text=Ol%C3%A1%20Weliton!%20Sou%20de%20uma%20ag%C3%AAncia%2Fempresa%20e%20quero%20conversar%20sobre%20te%20contratar.">
+       href="https://wa.me/5541985124091?text=Ol%C3%A1%20Weliton!%20Quero%20conversar%20sobre%20ter%20voc%C3%AA%20no%20meu%20time%20(ag%C3%AAncia%2Fempresa).">
       <span class="ico"><svg class="i"><use href="#i-brief"/></svg></span>
-      <span><b>Quero te contratar</b><small>Sou agência ou empresa e preciso de reforço no time.</small></span>
+      <span><b>Quero você no meu time</b><small>Agências e empresas: freelance, PJ ou alocado, 100% remoto.</small></span>
       <span class="arrow"><svg class="i"><use href="#i-arrow"/></svg></span>
     </a>
 
-    <div class="hire rv" style="animation-delay:.46s">
-      <h3><svg class="i"><use href="#i-users"/></svg>Para agências e empresas</h3>
-      <div class="chips">
-        <span class="chip">Freelance por projeto</span><span class="chip">PJ / alocado</span>
-        <span class="chip">White-label</span><span class="chip">100% remoto</span>
-      </div>
-      <h3><svg class="i"><use href="#i-code"/></svg>O que eu entrego</h3>
-      <div class="chips">
-        <span class="chip">UI/UX</span><span class="chip">Landing pages</span><span class="chip">Front-end</span>
-        <span class="chip">Full-stack</span><span class="chip">WordPress</span><span class="chip">IA &amp; automação</span>
-      </div>
-    </div>
 
     <section class="tools rv" style="animation-delay:.48s" aria-label="Ferramentas que uso">
-      <div class="sec-head"><h2>Ferramentas que uso</h2></div>
       <div class="marquee"><div class="track" data-tools="figma:Figma,illustrator:Adobe Illustrator:tall,photoshop:Adobe Photoshop:tall,coreldraw:CorelDRAW:tall,magnific:Magnific:slim"></div></div>
       <div class="marquee rev"><div class="track" data-tools="claude:Claude,chatgpt:ChatGPT,gemini:Gemini,wordpress:WordPress,apps-script:Google Apps Script:xl"></div></div>
     </section>
@@ -328,31 +328,37 @@
       </a>
     </div>
 
-    <div class="sec-head rv" style="animation-delay:.6s"><h2>Portfólio</h2><a href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">Ver completo →</a></div>
-    <p class="sec-sub rv" style="animation-delay:.62s">Alguns projetos recentes. Deslize para ver mais.</p>
+    <div class="sec-head rv" style="animation-delay:.6s"><h2>Projetos que criei</h2><a href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">Ver completo →</a></div>
+    <p class="sec-sub rv" style="animation-delay:.62s">Deslize para ver e toque para ampliar.</p>
 
-    <div class="rail rv" style="animation-delay:.66s">
-      <a class="work" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">
-        <div class="thumb" style="background:linear-gradient(135deg,#001F4E,#1E6BFF);--acc:#001F4E;--acc2:#D7263D"><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="l h"></div><div class="l"></div><div class="l s"></div><div class="btn"></div></div></div>
-        <div class="meta"><div class="tag">Landing page · Jurídico</div><h3>Nonato &amp; Salfer</h3></div>
-      </a>
-      <a class="work" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">
-        <div class="thumb" style="background:linear-gradient(135deg,#0D2B5A,#1B8C3D);--acc:#0D2B5A;--acc2:#1B8C3D"><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="l h"></div><div class="l"></div><div class="l s"></div><div class="btn"></div></div></div>
-        <div class="meta"><div class="tag">Sistema + site · Turismo</div><h3>Ágape Brasil</h3></div>
-      </a>
-      <a class="work" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">
-        <div class="thumb" style="background:linear-gradient(135deg,#00D9F6,#1E6BFF);--acc:#001F4E;--acc2:#00B8D4"><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="l h"></div><div class="l"></div><div class="l s"></div><div class="btn"></div></div></div>
-        <div class="meta"><div class="tag">SaaS · IA no WhatsApp</div><h3>Loocaw Atende</h3></div>
-      </a>
-      <a class="work" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">
-        <div class="thumb" style="background:linear-gradient(135deg,#0A3A8C,#FFC93C);--acc:#0A3A8C;--acc2:#FFC93C"><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="l h"></div><div class="l"></div><div class="l s"></div><div class="btn"></div></div></div>
-        <div class="meta"><div class="tag">Landing page · TEA</div><h3>Fabricio Salfer</h3></div>
-      </a>
-      <a class="work" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">
-        <div class="thumb" style="background:linear-gradient(135deg,#1E6BFF,#4D1281);--acc:#1E3A6B;--acc2:#3FA9F5"><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="l h"></div><div class="l"></div><div class="l s"></div><div class="btn"></div></div></div>
-        <div class="meta"><div class="tag">Web app · CRM</div><h3>Shine Maid Services</h3></div>
-      </a>
+    <div class="show rv" style="animation-delay:.66s">
+      <div class="show-track" id="show" data-sites="
+        coca-cola-nzlog|Site institucional · Vending|NzLog Coca-Cola;
+        bruno-nicolino|Landing page · Direito aéreo|Bruno Nicolino Advocacia;
+        educacao-inclusiva|Landing page · Movimento social|Educação Inclusiva FSA;
+        disney-day|Página de vendas · Masterclass|Disney Day da Advocacia;
+        maldonado|Landing page · Direito rural|Maldonado Advogados;
+        lmr|Landing page · Previdenciário|LMR Advogados;
+        leticia-nadia|Webinário · Previdenciário|Letícia &amp; Nádia;
+        gutemberg|Site institucional · Treinamentos|Gutemberg Consultoria;
+        feminina-beauty|Página de vendas · E-commerce|Feminina Beauty;
+        vender-sem-tretas|Página de vendas · Masterclass|Vender Sem Tretas;
+        silva-filho|Landing page · Aposentadoria especial|Silva Filho &amp; Souza Pereira;
+        aplic-revest|Site institucional · Acabamentos|Aplic &amp; Revest;
+        direito-de-viver|Lead magnet · Guia gratuito|Direito de Viver;
+        eizzi-melgarejo|Landing page · Direito médico|Dra. Eizzi Melgarejo;
+        canmat|Página de vendas · Workshop|CANMAT Perinatal"></div>
+      <div class="show-nav">
+        <button class="nav-btn" id="prev" type="button" aria-label="Anterior"><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button>
+        <div class="dots" id="dots"></div>
+        <button class="nav-btn" id="next" type="button" aria-label="Próximo"><svg class="i"><use href="#i-arrow"/></svg></button>
+      </div>
     </div>
+
+    <dialog class="lightbox" id="lightbox" aria-label="Visualizar projeto">
+      <button class="lb-close" type="button" aria-label="Fechar">✕</button>
+      <div class="lb-body"><img alt="" /><p></p></div>
+    </dialog>
 
     <section class="closing rv" style="animation-delay:.7s">
       <p>Do briefing ao deploy, <span class="grad-text">com design, código e IA.</span></p>
@@ -387,6 +393,49 @@
         var half = items + items + items;
         track.innerHTML = half + half.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"');
       });
+      // carrossel de sites: monta os cards, destaca o central, autoplay e lightbox
+      var show = document.getElementById('show');
+      if (show) {
+        var sites = show.dataset.sites.split(';').map(function (x) { return x.trim().split('|'); }).filter(function (x) { return x[0]; });
+        show.innerHTML = sites.map(function (x, i) {
+          return '<button class="site" type="button" data-i="' + i + '" aria-label="Ampliar ' + x[2] + '">' +
+            '<div class="shot"><img src="assets/sites/' + x[0] + '.webp" alt="Site ' + x[2] + '" loading="' + (i < 2 ? 'eager' : 'lazy') + '" /></div>' +
+            '<div class="meta"><div class="tag">' + x[1] + '</div><h3>' + x[2] + '</h3></div></button>';
+        }).join('');
+        var cards = [].slice.call(show.children), dots = document.getElementById('dots');
+        dots.innerHTML = cards.map(function () { return '<i></i>'; }).join('');
+        var dotEls = [].slice.call(dots.children), cur = -1;
+        function update() {
+          var mid = show.scrollLeft + show.clientWidth / 2, best = 0, bd = 1e9;
+          cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+          if (best === cur) return; cur = best;
+          cards.forEach(function (c, i) { c.classList.toggle('on', i === best); dotEls[i].classList.toggle('on', i === best); });
+        }
+        function go(i) { i = (i + cards.length) % cards.length; var c = cards[i]; show.scrollTo({ left: c.offsetLeft - (show.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' }); }
+        show.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, timer = null, resume = null;
+        function start() { if (!reduce && !timer) timer = setInterval(function () { go(cur + 1); }, 3800); }
+        function pause() { clearInterval(timer); timer = null; }
+        function hold() { pause(); clearTimeout(resume); resume = setTimeout(start, 8000); }
+        document.getElementById('prev').addEventListener('click', function () { hold(); go(cur - 1); });
+        document.getElementById('next').addEventListener('click', function () { hold(); go(cur + 1); });
+        ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { show.addEventListener(ev, hold, { passive: true }); });
+        if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { e[0].isIntersecting ? start() : pause(); }).observe(show);
+        else start();
+        update();
+
+        var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbTxt = lb.querySelector('p');
+        show.addEventListener('click', function (e) {
+          var c = e.target.closest('.site'); if (!c) return;
+          var i = +c.dataset.i, x = sites[i];
+          if (i !== cur) { go(i); return; }
+          lbImg.src = 'assets/sites/' + x[0] + '.webp'; lbImg.alt = 'Site ' + x[2]; lbTxt.innerHTML = x[2] + ' · ' + x[1];
+          pause(); lb.showModal(); lb.querySelector('.lb-body').scrollTop = 0;
+        });
+        lb.querySelector('.lb-close').addEventListener('click', function () { lb.close(); });
+        lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('lb-body')) lb.close(); });
+        lb.addEventListener('close', function () { clearTimeout(resume); start(); });
+      }
       document.getElementById('y').textContent = new Date().getFullYear();
     })();
   </script>
