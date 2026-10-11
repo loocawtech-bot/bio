@@ -152,6 +152,27 @@
     .chip { padding: 6px 11px; border-radius: 100px; background: var(--chip); border: 1px solid var(--line); font: 500 .78rem var(--fd); color: var(--txt); }
     .hire .chips + h3 { margin-top: 16px; }
 
+    /* ferramentas — marquee infinito */
+    .tools { margin-top: 36px; }
+    .tools .sec-head { margin-top: 0; }
+    .marquee { position: relative; overflow: hidden; margin: 0 -16px; padding: 6px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
+    .marquee + .marquee { margin-top: 10px; }
+    .track { display: flex; width: max-content; gap: 10px; animation: marquee 32s linear infinite; }
+    .marquee.rev .track { animation-direction: reverse; animation-duration: 38s; }
+    .marquee:hover .track { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    .tool { flex: none; height: 56px; padding: 0 20px; border-radius: 14px; display: grid; place-items: center;
+      background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(12px); transition: border-color .25s; }
+    .tool:hover { border-color: var(--line-2); }
+    .tool img { height: 24px; width: auto; display: block; opacity: .88; transition: opacity .25s; }
+    .tool:hover img { opacity: 1; }
+    .tool img.tall { height: 30px; }
+    .tool img.slim { height: 20px; }
+    .tool img.xl { height: 38px; }
+    :root[data-theme="light"] .tool img { filter: brightness(0) saturate(100%) invert(10%) sepia(60%) saturate(3500%) hue-rotate(205deg) brightness(.9); }
+
     /* lista de links */
     .links { display: grid; gap: 12px; margin-top: 28px; }
     .link {
@@ -205,6 +226,7 @@
 
     @media (min-width: 560px) { .rail { grid-auto-columns: 46%; } .wrap { padding-top: 28px; } }
     @media (prefers-reduced-motion: reduce) {
+      .marquee { overflow-x: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .rv { opacity: 1; transform: none; }
     }
@@ -288,6 +310,12 @@
       </div>
     </div>
 
+    <section class="tools rv" style="animation-delay:.48s" aria-label="Ferramentas que uso">
+      <div class="sec-head"><h2>Ferramentas que uso</h2></div>
+      <div class="marquee"><div class="track" data-tools="figma:Figma,illustrator:Adobe Illustrator:tall,photoshop:Adobe Photoshop:tall,coreldraw:CorelDRAW:tall,magnific:Magnific:slim"></div></div>
+      <div class="marquee rev"><div class="track" data-tools="claude:Claude,chatgpt:ChatGPT,gemini:Gemini,wordpress:WordPress,apps-script:Google Apps Script:xl"></div></div>
+    </section>
+
     <div class="links">
       <a class="link rv" style="animation-delay:.5s" href="https://welitonoliveira.com.br" target="_blank" rel="noopener">
         <span class="n">01</span><span class="t"><b>Meu portfólio</b><small>welitonoliveira.com.br: trajetória, serviços e contato.</small></span><svg class="i go"><use href="#i-up"/></svg>
@@ -349,6 +377,15 @@
         root.dataset.theme = next;
         document.querySelector('meta[name=theme-color]').content = next === 'light' ? '#F3F7FC' : '#000B1F';
         try { localStorage.setItem('bio-theme', next); } catch (e) {}
+      });
+      document.querySelectorAll('[data-tools]').forEach(function (track) {
+        var items = track.dataset.tools.split(',').map(function (t) {
+          var p = t.split(':');
+          return '<div class="tool"><img src="assets/tools/' + p[0] + '.webp" alt="' + p[1] + '" class="' + (p[2] || '') + '" loading="lazy" /></div>';
+        }).join('');
+        // repete até cobrir telas largas; a 2ª metade é cópia exata para o loop -50% ser contínuo
+        var half = items + items + items;
+        track.innerHTML = half + half.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"');
       });
       document.getElementById('y').textContent = new Date().getFullYear();
     })();
