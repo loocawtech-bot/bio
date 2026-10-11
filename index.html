@@ -245,12 +245,26 @@
     @media (min-width: 900px) { .lb-thumbs { justify-content: center; } }
 
     /* fechamento */
-    .closing { text-align: center; margin-top: 40px; padding: 28px 20px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
-    .closing p { font: 600 1.12rem var(--fd); color: var(--txt); letter-spacing: -.02em; line-height: 1.4; }
-    .closing .row { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 100px; font: 600 .88rem var(--fd); border: 1.5px solid var(--line); color: var(--txt); transition: border-color .25s, transform .25s var(--ease); }
-    .pill:hover { border-color: var(--line-2); transform: translateY(-2px); }
-    .pill svg { width: 16px; height: 16px; }
+    /* fechamento: frase revelada palavra a palavra + botão WhatsApp */
+    .closing { text-align: center; margin-top: 56px; padding: 8px 4px 0; }
+    .closing .line { display: block; width: 48px; height: 1px; margin: 0 auto 22px; background: var(--lk-grad-h); transform: scaleX(0); transition: transform 1.2s var(--ease); }
+    .closing.in .line { transform: scaleX(1); }
+    .phrase { font: 300 clamp(1.45rem, 6.4vw, 1.9rem) var(--fd); color: var(--txt); letter-spacing: -.02em; line-height: 1.3; }
+    .phrase .w { display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(12px);
+      transition: opacity .9s var(--ease), filter .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i) * 90ms); }
+    .closing.in .phrase .w { opacity: 1; filter: blur(0); transform: none; }
+    .phrase .hl { font-weight: 500; background: linear-gradient(90deg, #00D9F6, #1E6BFF, #4D1281, #1E6BFF, #00D9F6); background-size: 300% 100%;
+      -webkit-background-clip: text; background-clip: text; color: transparent; animation: flow 8s linear infinite; }
+    @keyframes flow { to { background-position: 300% 0; } }
+    .wa-btn { position: relative; display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; padding: 15px 30px; border-radius: 100px;
+      font: 600 .98rem var(--fd); color: #fff; background: linear-gradient(135deg, #25D366, #128C7E); overflow: hidden; isolation: isolate;
+      box-shadow: 0 14px 34px rgba(37, 211, 102, .35); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .wa-btn svg { width: 20px; height: 20px; }
+    .wa-btn::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .35) 50%, transparent 70%);
+      transform: translateX(-100%); animation: shine 3.8s var(--ease) infinite; }
+    .wa-btn { animation: waPulse 2.6s ease-out infinite; }
+    @keyframes waPulse { 0% { box-shadow: 0 14px 34px rgba(37, 211, 102, .35), 0 0 0 0 rgba(37, 211, 102, .5); } 80%, 100% { box-shadow: 0 14px 34px rgba(37, 211, 102, .35), 0 0 0 16px rgba(37, 211, 102, 0); } }
+    .wa-btn:hover { transform: translateY(-3px); }
     footer { text-align: center; margin-top: 28px; font-size: .8rem; color: var(--muted); line-height: 1.7; }
     footer a:hover { color: var(--txt); }
 
@@ -263,6 +277,7 @@
       .marquee { overflow-x: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .rv { opacity: 1; transform: none; }
+      .phrase .w { opacity: 1 !important; filter: none !important; transform: none !important; }
     }
   </style>
 </head>
@@ -388,17 +403,16 @@
       </div>
     </dialog>
 
-    <section class="closing rv" style="animation-delay:.7s">
-      <p>Do briefing ao deploy, <span class="grad-text">com design, código e IA.</span></p>
-      <div class="row">
-        <a class="pill" href="https://welitonoliveira.com.br" target="_blank" rel="noopener"><svg class="i"><use href="#i-globe"/></svg>Portfólio</a>
-        <a class="pill" href="https://wa.me/5541985124091" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
-      </div>
+    <section class="closing" id="closing">
+      <span class="line" aria-hidden="true"></span>
+      <p class="phrase" data-split>Do briefing ao deploy, <span class="hl">com design, código e IA.</span></p>
+      <a class="wa-btn" href="https://wa.me/5541985124091?text=Ol%C3%A1%20Weliton!%20Vim%20pela%20sua%20bio%20e%20quero%20conversar." target="_blank" rel="noopener">
+        <svg class="i"><use href="#i-wa"/></svg>Falar no WhatsApp
+      </a>
     </section>
 
     <footer>
-      © <span id="y">2026</span> Weliton Oliveira · Curitiba, PR<br />
-      <a href="mailto:well.leite88@gmail.com">well.leite88@gmail.com</a>
+      © <span id="y">2026</span> Weliton Oliveira · Curitiba, PR
     </footer>
   </main>
 
@@ -525,6 +539,28 @@
         });
         lbBody.addEventListener('pointercancel', function () { sx = null; });
         lb.addEventListener('close', function () { clearTimeout(resume); start(); });
+      }
+      // frase final: divide em palavras e revela ao entrar na tela
+      var closing = document.getElementById('closing');
+      if (closing) {
+        var k = 0;
+        closing.querySelectorAll('[data-split], [data-split] .hl').forEach(function (el) {
+          [].slice.call(el.childNodes).forEach(function (node) {
+            if (node.nodeType !== 3) return;
+            var frag = document.createDocumentFragment();
+            node.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+              var w = document.createElement('span'); w.className = 'w'; w.textContent = part; w.style.setProperty('--i', k++); frag.appendChild(w);
+            });
+            node.replaceWith(frag);
+          });
+        });
+        // as palavras do destaque herdam o gradiente animado do .hl
+        closing.querySelectorAll('.hl .w').forEach(function (w) { w.classList.add('hl'); });
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { closing.classList.add('in'); o.disconnect(); } }, { threshold: .4 }).observe(closing);
+        } else closing.classList.add('in');
       }
       document.getElementById('y').textContent = new Date().getFullYear();
     })();
