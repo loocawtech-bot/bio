@@ -176,44 +176,45 @@
       transition: border-color .25s, background .25s, transform .25s var(--ease);
     }
     .link:hover { border-color: var(--line-2); background: var(--card-hover); transform: translateY(-2px); }
-    .link .n { font: 600 .78rem var(--fd); color: var(--muted); letter-spacing: .04em; width: 20px; }
     .link .t { flex: 1; min-width: 0; }
     .link b { display: block; font: 600 .98rem var(--fd); color: var(--txt); }
     .link small { display: block; font-size: .84rem; color: var(--body); line-height: 1.4; }
     .link .go { color: var(--muted); transition: color .25s, transform .25s var(--ease); }
     .link:hover .go { color: var(--accent); transform: translate(2px, -2px); }
 
-    /* portfólio */
-    .sec-head { display: flex; align-items: baseline; justify-content: space-between; margin: 40px 0 6px; }
-    .sec-head h2 { font: 700 1.25rem var(--fd); color: var(--txt); letter-spacing: -.02em; }
-    .sec-head a { font: 500 .85rem var(--fd); color: var(--accent); }
-    .sec-sub { font-size: .9rem; margin-bottom: 16px; }
 
 
-    /* sites — carrossel coverflow */
-    .show { position: relative; margin: 0 -16px; }
-    .show-track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 9% 18px; scrollbar-width: none; }
-    .show-track::-webkit-scrollbar { display: none; }
-    .site { flex: 0 0 82%; scroll-snap-align: center; border-radius: 18px; overflow: hidden; background: var(--card); border: 1px solid var(--line);
-      cursor: zoom-in; transform: scale(var(--s, .9)); opacity: var(--o, .55); transition: transform .5s var(--ease), opacity .5s var(--ease), border-color .3s, box-shadow .5s;
-      text-align: left; padding: 0; font: inherit; color: inherit; }
-    .site.on { --s: 1; --o: 1; border-color: var(--line-2); box-shadow: 0 22px 50px rgba(0, 10, 40, .45), 0 0 0 1px rgba(0, 217, 246, .12); }
-    .site .shot { position: relative; aspect-ratio: 1920 / 1140; overflow: hidden; background: var(--bg-2); }
-    .site img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; transition: transform 6s linear; }
-    .site.on img { transform: scale(1.06); }
-    .site .shot::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .18) 50%, transparent 65%); transform: translateX(-120%); }
-    .site.on .shot::after { animation: sweep 1.4s var(--ease) .2s; }
-    @keyframes sweep { to { transform: translateX(120%); } }
-    .site .meta { padding: 12px 16px 14px; }
-    .site .tag { font: 600 .66rem var(--fd); text-transform: uppercase; letter-spacing: .12em; color: var(--accent); }
-    .site h3 { font: 600 .98rem var(--fd); color: var(--txt); margin-top: 3px; letter-spacing: -.01em; }
-    .show-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; }
-    .nav-btn { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: var(--card); border: 1px solid var(--line); color: var(--txt); transition: border-color .25s; }
-    .nav-btn:hover { border-color: var(--line-2); }
-    .nav-btn svg { width: 16px; height: 16px; }
+    /* projetos — carrossel empilhado: destaque central sobre os demais, bordas esfumaçadas */
+    .proj-head { text-align: center; margin: 48px 0 18px; }
+    .proj-head .eyebrow { display: block; font: 400 .72rem var(--fd); text-transform: uppercase; letter-spacing: .32em; color: var(--muted); }
+    .proj-head h2 { font: 300 1.6rem var(--fd); color: var(--txt); letter-spacing: -.01em; margin-top: 6px; }
+    .show { position: relative; margin: 0 -16px; overflow-x: clip; }
+    .stage { position: relative; height: clamp(190px, 52vw, 270px); touch-action: pan-y; user-select: none; -webkit-user-select: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.4) 7%, #000 20%, #000 80%, rgba(0,0,0,.4) 93%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.4) 7%, #000 20%, #000 80%, rgba(0,0,0,.4) 93%, transparent 100%); }
+    .stage::after { content: ''; position: absolute; left: 20%; right: 20%; bottom: -6px; height: 40px; border-radius: 50%; background: rgba(0, 0, 0, .45); filter: blur(18px); z-index: 0; }
+    :root[data-theme="light"] .stage::after { background: rgba(0, 31, 78, .18); }
+    .slide { position: absolute; top: 50%; left: 50%; width: 72%; aspect-ratio: 1920 / 1140; padding: 0; border: 0; background: none; cursor: pointer;
+      border-radius: 12px; overflow: hidden; z-index: var(--z, 1); opacity: var(--o, 0);
+      transform: translate(-50%, -50%) translateX(var(--x, 0)) scale(var(--s, .7));
+      filter: blur(var(--b, 0)) brightness(var(--l, 1));
+      transition: transform .9s cubic-bezier(.22, .9, .25, 1), opacity .9s ease, filter .9s ease, box-shadow .9s ease; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; pointer-events: none; }
+    .slide.on { cursor: zoom-in; box-shadow: 0 26px 60px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .06); }
+    :root[data-theme="light"] .slide.on { box-shadow: 0 24px 54px rgba(0, 31, 78, .25); }
+    .caption { text-align: center; margin-top: 18px; min-height: 44px; transition: opacity .45s ease, transform .45s ease; }
+    .caption.out { opacity: 0; transform: translateY(6px); }
+    .caption h3 { font: 400 1.02rem var(--fd); color: var(--txt); letter-spacing: 0; }
+    .caption span { display: block; margin-top: 3px; font: 300 .8rem var(--fb); color: var(--muted); letter-spacing: .04em; }
+    .show-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 10px; }
+    .nav-btn { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: none; border: 1px solid var(--line); color: var(--body); transition: border-color .25s, color .25s; }
+    .nav-btn:hover { border-color: var(--line-2); color: var(--txt); }
+    .nav-btn svg { width: 15px; height: 15px; }
     .dots { display: flex; gap: 5px; }
-    .dots i { width: 6px; height: 6px; border-radius: 6px; background: var(--line-2); opacity: .5; transition: width .35s var(--ease), opacity .35s, background .35s; }
-    .dots i.on { width: 20px; opacity: 1; background: var(--lk-grad-h); }
+    .dots i { width: 5px; height: 5px; border-radius: 5px; background: var(--muted); opacity: .35; transition: width .4s var(--ease), opacity .4s; }
+    .dots i.on { width: 18px; opacity: .9; background: var(--accent); }
+    .proj-more { display: table; margin: 16px auto 0; font: 400 .82rem var(--fd); color: var(--body); letter-spacing: .02em; border-bottom: 1px solid var(--line-2); padding-bottom: 2px; transition: color .25s; }
+    .proj-more:hover { color: var(--txt); }
 
     .lightbox { border: 0; padding: 0; margin: auto; width: min(100vw, 1100px); max-width: 100vw; height: 100dvh; max-height: 100dvh; background: transparent; color: var(--txt); }
     .lightbox::backdrop { background: rgba(0, 6, 20, .88); backdrop-filter: blur(6px); }
@@ -236,7 +237,7 @@
     .rv { opacity: 0; transform: translateY(14px); animation: in .7s var(--ease) forwards; }
     @keyframes in { to { opacity: 1; transform: none; } }
 
-    @media (min-width: 560px) { .site { flex-basis: 70%; } .show-track { padding-inline: 15%; } .wrap { padding-top: 28px; } }
+    @media (min-width: 560px) { .slide { width: 64%; } .wrap { padding-top: 28px; } }
     @media (prefers-reduced-motion: reduce) {
       .marquee { overflow-x: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -318,21 +319,17 @@
 
     <div class="links">
       <a class="link rv" style="animation-delay:.5s" href="https://welitonoliveira.com.br" target="_blank" rel="noopener">
-        <span class="n">01</span><span class="t"><b>Meu portfólio</b><small>welitonoliveira.com.br: trajetória, serviços e contato.</small></span><svg class="i go"><use href="#i-up"/></svg>
-      </a>
-      <a class="link rv" style="animation-delay:.53s" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">
-        <span class="n">02</span><span class="t"><b>Projetos realizados</b><small>Sites, landing pages, sistemas e IA.</small></span><svg class="i go"><use href="#i-up"/></svg>
-      </a>
-      <a class="link rv" style="animation-delay:.56s" href="https://welitonoliveira.com.br/#servicos" target="_blank" rel="noopener">
-        <span class="n">03</span><span class="t"><b>Serviços</b><small>Como trabalho e o que posso fazer por você.</small></span><svg class="i go"><use href="#i-up"/></svg>
+        <span class="t"><b>Acesse meu site</b><small>Me conheça melhor e veja meu portfólio completo.</small></span><svg class="i go"><use href="#i-up"/></svg>
       </a>
     </div>
 
-    <div class="sec-head rv" style="animation-delay:.6s"><h2>Projetos que criei</h2><a href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">Ver completo →</a></div>
-    <p class="sec-sub rv" style="animation-delay:.62s">Deslize para ver e toque para ampliar.</p>
+    <header class="proj-head rv" style="animation-delay:.6s">
+      <span class="eyebrow">Portfólio</span>
+      <h2>Projetos que criei</h2>
+    </header>
 
     <div class="show rv" style="animation-delay:.66s">
-      <div class="show-track" id="show" data-sites="
+      <div class="stage" id="show" data-sites="
         coca-cola-nzlog|Site institucional · Vending|NzLog Coca-Cola;
         bruno-nicolino|Landing page · Direito aéreo|Bruno Nicolino Advocacia;
         educacao-inclusiva|Landing page · Movimento social|Educação Inclusiva FSA;
@@ -347,12 +344,14 @@
         aplic-revest|Site institucional · Acabamentos|Aplic &amp; Revest;
         direito-de-viver|Lead magnet · Guia gratuito|Direito de Viver;
         eizzi-melgarejo|Landing page · Direito médico|Dra. Eizzi Melgarejo;
-        canmat|Página de vendas · Workshop|CANMAT Perinatal"></div>
+        canmat|Página de vendas · Workshop|CANMAT Perinatal" aria-roledescription="carrossel" aria-label="Projetos que criei"></div>
+      <div class="caption" id="caption" aria-live="polite"><h3></h3><span></span></div>
       <div class="show-nav">
         <button class="nav-btn" id="prev" type="button" aria-label="Anterior"><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button>
         <div class="dots" id="dots"></div>
         <button class="nav-btn" id="next" type="button" aria-label="Próximo"><svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
+      <a class="proj-more" href="https://welitonoliveira.com.br/#trabalhos" target="_blank" rel="noopener">Ver portfólio completo</a>
     </div>
 
     <dialog class="lightbox" id="lightbox" aria-label="Visualizar projeto">
@@ -393,42 +392,66 @@
         var half = items + items + items;
         track.innerHTML = half + half.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"');
       });
-      // carrossel de sites: monta os cards, destaca o central, autoplay e lightbox
+      // carrossel de projetos: pilha com o destaque à frente, autoplay, arrastar e lightbox
       var show = document.getElementById('show');
       if (show) {
         var sites = show.dataset.sites.split(';').map(function (x) { return x.trim().split('|'); }).filter(function (x) { return x[0]; });
+        var n = sites.length, cur = 0;
         show.innerHTML = sites.map(function (x, i) {
-          return '<button class="site" type="button" data-i="' + i + '" aria-label="Ampliar ' + x[2] + '">' +
-            '<div class="shot"><img src="assets/sites/' + x[0] + '.webp" alt="Site ' + x[2] + '" loading="' + (i < 2 ? 'eager' : 'lazy') + '" /></div>' +
-            '<div class="meta"><div class="tag">' + x[1] + '</div><h3>' + x[2] + '</h3></div></button>';
+          return '<button class="slide" type="button" data-i="' + i + '" aria-label="' + x[2] + '">' +
+            '<img src="assets/sites/' + x[0] + '.webp" alt="Site ' + x[2] + '" loading="' + (i < 3 || i > n - 3 ? 'eager' : 'lazy') + '" draggable="false" /></button>';
         }).join('');
-        var cards = [].slice.call(show.children), dots = document.getElementById('dots');
-        dots.innerHTML = cards.map(function () { return '<i></i>'; }).join('');
-        var dotEls = [].slice.call(dots.children), cur = -1;
-        function update() {
-          var mid = show.scrollLeft + show.clientWidth / 2, best = 0, bd = 1e9;
-          cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
-          if (best === cur) return; cur = best;
-          cards.forEach(function (c, i) { c.classList.toggle('on', i === best); dotEls[i].classList.toggle('on', i === best); });
+        var slides = [].slice.call(show.children), dots = document.getElementById('dots'), cap = document.getElementById('caption');
+        dots.innerHTML = slides.map(function () { return '<i></i>'; }).join('');
+        var dotEls = [].slice.call(dots.children);
+        function render() {
+          slides.forEach(function (el, i) {
+            var d = i - cur;
+            if (d > n / 2) d -= n; if (d < -n / 2) d += n;
+            var a = Math.abs(d), st = el.style;
+            st.setProperty('--x', (d * 36) + '%');
+            st.setProperty('--s', a === 0 ? 1 : a === 1 ? .78 : .62);
+            st.setProperty('--o', a === 0 ? 1 : a === 1 ? .8 : a === 2 ? .35 : 0);
+            st.setProperty('--b', a === 0 ? '0px' : a === 1 ? '1.5px' : '3px');
+            st.setProperty('--l', a === 0 ? 1 : .7);
+            st.setProperty('--z', 10 - a);
+            el.classList.toggle('on', a === 0);
+            el.tabIndex = a === 0 ? 0 : -1;
+            dotEls[i].classList.toggle('on', a === 0);
+          });
+          cap.classList.add('out');
+          clearTimeout(render.t);
+          render.t = setTimeout(function () {
+            cap.querySelector('h3').innerHTML = sites[cur][2];
+            cap.querySelector('span').innerHTML = sites[cur][1];
+            cap.classList.remove('out');
+          }, 220);
         }
-        function go(i) { i = (i + cards.length) % cards.length; var c = cards[i]; show.scrollTo({ left: c.offsetLeft - (show.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' }); }
-        show.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+        function go(i) { cur = (i + n) % n; render(); }
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, timer = null, resume = null;
-        function start() { if (!reduce && !timer) timer = setInterval(function () { go(cur + 1); }, 3800); }
+        function start() { if (!reduce && !timer) timer = setInterval(function () { go(cur + 1); }, 4200); }
         function pause() { clearInterval(timer); timer = null; }
         function hold() { pause(); clearTimeout(resume); resume = setTimeout(start, 8000); }
         document.getElementById('prev').addEventListener('click', function () { hold(); go(cur - 1); });
         document.getElementById('next').addEventListener('click', function () { hold(); go(cur + 1); });
-        ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { show.addEventListener(ev, hold, { passive: true }); });
+        // arrastar (pointer events)
+        var x0 = null, moved = false;
+        show.addEventListener('pointerdown', function (e) { x0 = e.clientX; moved = false; hold(); });
+        show.addEventListener('pointermove', function (e) { if (x0 !== null && Math.abs(e.clientX - x0) > 8) moved = true; });
+        window.addEventListener('pointerup', function (e) {
+          if (x0 === null) return;
+          var dx = e.clientX - x0; x0 = null;
+          if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+        });
         if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { e[0].isIntersecting ? start() : pause(); }).observe(show);
         else start();
-        update();
+        render();
 
         var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbTxt = lb.querySelector('p');
         show.addEventListener('click', function (e) {
-          var c = e.target.closest('.site'); if (!c) return;
+          var c = e.target.closest('.slide'); if (!c || moved) return;
           var i = +c.dataset.i, x = sites[i];
-          if (i !== cur) { go(i); return; }
+          if (i !== cur) { hold(); go(i); return; }
           lbImg.src = 'assets/sites/' + x[0] + '.webp'; lbImg.alt = 'Site ' + x[2]; lbTxt.innerHTML = x[2] + ' · ' + x[1];
           pause(); lb.showModal(); lb.querySelector('.lb-body').scrollTop = 0;
         });
